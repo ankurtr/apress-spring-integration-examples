@@ -33,13 +33,18 @@
   <context:component-scan base-package="com.apress.prospringintegration"/>
 
   <int:channel id="input"/>
+  <int:channel id="jms" />
 
   <jms:outbound-channel-adapter channel="input" destination-name="requestQueue"/>
 
-  <jms:message-driven-channel-adapter channel="output" destination-name="requestQueue"/>
+  <jms:message-driven-channel-adapter channel="jms" destination-name="requestQueue"/>
 
   <int:channel id="output">
     <int:queue capacity="10"/>
   </int:channel>
+
+  <int:service-activator input-channel="jms"
+    output-channel="output"
+    ref="messageHandler"/>
 
 </beans>
