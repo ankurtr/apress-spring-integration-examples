@@ -33,5 +33,7 @@ public class JmsApp {
         input.send(MessageBuilder.withPayload("Pro Spring Integration Example").build());
         Message<?> reply = output.receive();
         System.out.println("received: " + reply);
+        
+        context.close();
     }
 }
